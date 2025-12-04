@@ -1,3 +1,5 @@
+import { FAV_JOBS, REMOVE_FAV_JOBS } from "../actions";
+
 const initialState = {
   favorites: [],
 };
@@ -5,24 +7,21 @@ const initialState = {
 const mainReducer = function (currentState = initialState, action) {
   switch (action.type) {
     // aggiunge lavoro ai preferiti
-    case "FAV_JOBS":
+    case FAV_JOBS:
       return {
         ...currentState,
         favorites: [...currentState.favorites, action.payload],
       };
 
     // rimuove lavoro dai preferiti
-    case "REMOVE_FAV_JOBS":
+    case REMOVE_FAV_JOBS:
       return {
         ...currentState,
-        favorites: currentState.favorites.filter((job) => {
-          if (job._id === action.payload) {
-            return false;
-          } else {
-            return true;
-          }
-        }),
+        favorites: currentState.favorites.filter(
+          (job) => job._id !== action.payload
+        ),
       };
+
     default:
       return currentState;
   }

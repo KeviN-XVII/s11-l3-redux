@@ -2,12 +2,13 @@ import { Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useDispatch, useSelector } from "react-redux";
+import { addFavoriteJobAction } from "../redux/actions";
 
 const Job = ({ data }) => {
   const dispatch = useDispatch();
 
   const isFavorite = useSelector((state) =>
-    state.favorites.some((job) => job._id === data._id)
+    state.mainReducer.favorites.some((job) => job._id === data._id)
   );
   return (
     <Row
@@ -36,9 +37,7 @@ const Job = ({ data }) => {
         <Button
           variant=""
           size="sm"
-          onClick={() =>
-            console.log(dispatch({ type: "FAV_JOBS", payload: data }))
-          }
+          onClick={() => dispatch(addFavoriteJobAction(data))}
         >
           <i
             className={

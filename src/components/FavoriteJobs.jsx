@@ -1,10 +1,11 @@
 import { Col, Row, Button, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeFavoriteJobAction } from "../redux/actions";
 
 const FavoriteJobs = () => {
   const favorites = useSelector((currentState) => {
-    return currentState.favorites;
+    return currentState.mainReducer.favorites;
   });
 
   const dispatch = useDispatch();
@@ -25,7 +26,14 @@ const FavoriteJobs = () => {
                   className="mx-0 mt-3 p-3"
                   style={{ border: "1px solid #00000033", borderRadius: 4 }}
                 >
-                  <Col xs={3}>{jobData.company_name}</Col>
+                  <Col xs={3}>
+                    <Link
+                      className="text-decoration-none fw-bold text-black"
+                      to={`/${jobData.company_name}`}
+                    >
+                      {jobData.company_name}
+                    </Link>
+                  </Col>
                   <Col xs={9}>
                     <a
                       className="text-decoration-none text-black"
@@ -41,10 +49,7 @@ const FavoriteJobs = () => {
                       variant="outline-danger"
                       size="sm"
                       onClick={() =>
-                        dispatch({
-                          type: "REMOVE_FAV_JOBS",
-                          payload: jobData._id,
-                        })
+                        dispatch(removeFavoriteJobAction(jobData._id))
                       }
                     >
                       <i className="bi bi-trash-fill"></i>
