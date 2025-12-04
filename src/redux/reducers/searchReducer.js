@@ -1,4 +1,4 @@
-import { GET_JOBS } from "../actions";
+import { GET_JOBS, SET_LOADING, SET_ERROR } from "../actions";
 
 const initialState = {
   jobs: [],
@@ -10,19 +10,19 @@ const searchReducer = function (currentState = initialState, action) {
       return {
         ...currentState,
         jobs: action.payload.data,
-        // loading: false,
-        // error: null,
+        loading: true,
+        error: null,
       };
-    // case SET_LOADING:
-    //   return {
-    //     ...currentState,
-    //     loading: action.payload,
-    //   };
-    // case SET_ERROR:
-    //   return {
-    //     ...currentState,
-    //     error: action.payload,
-    //   };
+    case SET_LOADING:
+      return {
+        ...currentState,
+        loading: action.payload,
+      };
+    case SET_ERROR:
+      return {
+        ...currentState,
+        error: action.payload,
+      };
 
     default:
       return currentState;
